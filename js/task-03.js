@@ -1,14 +1,3 @@
-// Напиши скрипт для создания галереи изображений по массиву данных.
-//  В HTML есть список ul.gallery.
-
-// <ul class="gallery"></ul>
-// Используй массив объектов images для создания элементов <img>
-//  вложенных в < li >.Для создания разметки используй шаблонные
-//  строки и метод insertAdjacentHTML().
-
-// Все элементы галереи должны добавляться в DOM за одну операцию вставки.
-// Добавь минимальное оформление галереи флексбоксами или 
-// гридами через CSS классы.
 
 const images = [
   {
@@ -25,20 +14,22 @@ const images = [
   },
 ];
 
-const b = document.querySelector('.gallery');
+const newUlList = document.querySelector('.gallery');
+const newString = images
+  .map(({ url, alt }) =>
+  `<li><img src=${url} alt=${alt} width=600></li>`)
+  .join('');
 
-const elem = ({ url, alt }) => {
-  const a = document.createElement('li');
-  const imgEl = document.createElement('img');
-  imgEl.url = url;
-  imgEl.alt = alt;
-  imgEl.width = 100;
-  a.appendChild(imgEl);
-  return a
-};
+newUlList.insertAdjacentHTML("beforeend", newString);
 
-const newImage = images.map(elem);
-b.append(...newImage);
-console.log(b);
+newUlList.style.display = "flex";
+newUlList.style.listStyle = "none";
+newUlList.style.justifyContent = "space-between";
+newUlList.querySelector("img").style.height = "400px";
+
+const addAttributeLi  = newUlList.querySelectorAll('li');
+addAttributeLi.forEach(el => el.setAttribute("style", "padding: 40px;"));
+
+
 
 
